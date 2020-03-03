@@ -1,0 +1,19 @@
+.idea
+.vscode
+
+# Python
+__pycache__/
+*.py[cod]
+*$py.class
+*.so
+htmlcov/
+.coverage
+.coverage.*
+.pytest_cache/
+.venv
+venv
+
+.DS_Store
+.AppleDouble
+.LSOverride
+._*

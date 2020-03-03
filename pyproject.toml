@@ -1,0 +1,66 @@
+[build-system]
+requires = ["poetry>=0.12"]
+build-backend = "poetry.masonry.api"
+
+[tool.poetry]
+name = "backend"
+version = "0.1.0"
+description = "Minimal Poetry example with Docker Multi-Stage builds"
+authors = ["Michael Oliver <mo175@live.com>"]
+
+[tool.poetry.dependencies]
+python = "^3.7"
+
+fastapi = "0.52.0"
+gunicorn = "^20.0.4"
+uvicorn = "^0.11.3"
+
+
+[tool.poetry.dev-dependencies]
+pytest = "5.3.5"
+coverage = { version = "5.0.3", extras = ["toml"]}
+black = "^19.10b0"
+isort = { version = "^4.3.21", extras = ["pyproject"]}
+requests = "^2.23.0"
+
+
+[tool.black]
+# https://github.com/psf/black
+line-length = 88
+target_version = ['py38']
+exclude = '''
+(
+  /(
+    \.git
+    | \.mypy_cache
+    | \.pytest_cache
+    | htmlcov
+    | venv
+    | .venv
+  )/
+)
+'''
+
+[tool.isort]
+# https://github.com/timothycrosley/isort
+# https://github.com/timothycrosley/isort/wiki/isort-Settings
+line_length = 88
+indent = '    '
+multi_line_output = 3
+include_trailing_comma = true
+force_grid_wrap = 0
+
+
+[tool.coverage]
+# https://github.com/nedbat/coveragepy
+    [tool.coverage.run]
+
+    source = ["app"]
+    branch = true
+    omit = ['']
+
+    [tool.coverage.report]
+    exclude_lines = [
+        "# noqa",
+        "raise NotImplementedError"
+    ]
