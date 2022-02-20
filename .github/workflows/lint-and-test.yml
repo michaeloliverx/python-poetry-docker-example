@@ -19,6 +19,8 @@ jobs:
       - uses: jonyjalfon94/workflow-templates/build-and-push-docker@main
         name: Build and Push
         with:
+          lint: true
+          test: true
           registry_username: jonyjalfon94
           registry_password: ${{ secrets.DOCKERHUBPASSWORD }}
           image_name: demo-app
