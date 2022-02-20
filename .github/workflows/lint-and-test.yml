@@ -14,10 +14,11 @@ jobs:
     steps:
 # Checkout from SCM
       - uses: actions/checkout@v2
+        name: Checkout Sources
 
 # Use the workflow template to build and push docker
       - uses: jonyjalfon94/workflow-templates/build-and-push-docker@main
-        name: Build and Push
+        name: CI
         with:
           lint: true
           test: true
