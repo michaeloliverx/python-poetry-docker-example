@@ -19,8 +19,8 @@ jobs:
       - uses: jonyjalfon94/workflow-templates/build-and-push-docker@main
         name: Build and Push
         with:
-          lint: "true"
-          test: "true"
+          lint: true
+          test: true
           registry_username: jonyjalfon94
           registry_password: ${{ secrets.DOCKERHUBPASSWORD }}
           image_name: demo-app
@@ -28,3 +28,5 @@ jobs:
           build_args: |
             FIRST_ARG="Hello"
             SECOND_ARG="World"
+            THIRD_ARG="42"
+            FOURTH_ARG="foo"
