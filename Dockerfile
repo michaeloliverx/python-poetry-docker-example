@@ -46,7 +46,7 @@ COPY --from=builder-base $POETRY_HOME $POETRY_HOME
 COPY --from=builder-base $PYSETUP_PATH $PYSETUP_PATH
 
 # Copying in our entrypoint
-COPY ./docker/docker-entrypoint.sh /docker-entrypoint.sh
+COPY ./docker-entrypoint.sh /docker-entrypoint.sh
 RUN chmod +x /docker-entrypoint.sh
 
 # venv already has runtime deps installed we get a quicker install
@@ -64,17 +64,20 @@ CMD ["uvicorn", "--reload", "--host=0.0.0.0", "--port=8000", "main:app"]
 # 'lint' stage runs black and isort
 # running in check mode means build will fail if any linting errors occur
 FROM development AS lint
-RUN black --config ./pyproject.toml --check app tests
-RUN isort --settings-path ./pyproject.toml --recursive --check-only
+RUN poetry run black --config ./pyproject.toml --check app tests
 CMD ["tail", "-f", "/dev/null"]
 
 
 # 'test' stage runs our unit tests with pytest and
 # coverage.  Build will fail if test coverage is under 95%
 FROM development AS test
-RUN coverage run --rcfile ./pyproject.toml -m pytest ./tests
-RUN coverage report --fail-under 95
+RUN poetry run pytest ./tests > /app/result.txt
+RUN poetry run coverage run --rcfile ./pyproject.toml -m pytest ./tests
+RUN poetry run coverage report -m > /app/coverage.txt
 
+FROM scratch AS test-results
+COPY --from=test /app/result.txt result.txt 
+COPY --from=test /app/coverage.txt coverage.txt 
 
 # 'production' stage uses the clean 'python-base' stage and copyies
 # in only our runtime deps that were installed in the 'builder-base'
@@ -82,9 +85,9 @@ FROM python-base as production
 ENV FASTAPI_ENV=production
 
 COPY --from=builder-base $VENV_PATH $VENV_PATH
-COPY ./docker/gunicorn_conf.py /gunicorn_conf.py
+COPY ./gunicorn_conf.py /gunicorn_conf.py
 
-COPY ./docker/docker-entrypoint.sh /docker-entrypoint.sh
+COPY ./docker-entrypoint.sh /docker-entrypoint.sh
 RUN chmod +x /docker-entrypoint.sh
 
 COPY ./app /app

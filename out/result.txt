@@ -1,0 +1,9 @@
+Creating virtualenv backend in /app/.venv
+============================= test session starts ==============================
+platform linux -- Python 3.8.1, pytest-5.3.5, py-1.8.1, pluggy-0.13.1
+rootdir: /app
+collected 3 items
+
+tests/test_main.py ...                                                   [100%]
+
+============================== 3 passed in 0.02s ===============================
