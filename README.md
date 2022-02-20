@@ -17,7 +17,7 @@
 ## Local development
 
 ---
-## Poetry!
+## Poetry
 
 
 Create the virtual environment and install dependencies with:
