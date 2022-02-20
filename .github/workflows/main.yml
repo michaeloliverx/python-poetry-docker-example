@@ -1,0 +1,26 @@
+name: Test
+# Define Triggers
+on: 
+  pull_request:
+    branches: [ master ]
+    
+jobs:
+  test:
+    runs-on: ubuntu-latest
+    name: Test and Publish Results
+    steps:
+    # Download Source Code
+    - uses: actions/checkout@v2
+      with:
+        ref: ${{ github.event.pull_request.head.sha }}
+        
+# Use the workflow template to build and push docker
+    - uses: jonyjalfon94/workflow-templates/test-and-publish@main
+      name: CI
+      with:
+        image_name: demo-app
+        build_args: |
+          FIRST_ARG="Hello"
+          SECOND_ARG="World"
+          THIRD_ARG="42"
+          FOURTH_ARG="foo"
