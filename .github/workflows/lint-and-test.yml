@@ -1,13 +1,28 @@
-name: Python package
-
-on: [push]
-
+# Name of the Workflow
+name: CI
+# Triggers
+on:
+  push:
+    branches: [ master ]
+  pull_request:
+    branches: [ master ]
+  workflow_dispatch:
+# Configure Jobs
 jobs:
   build:
     runs-on: ubuntu-latest
-
     steps:
-    - uses: actions/checkout@v2
+# Checkout from SCM
+      - uses: actions/checkout@v2
 
-    - name: Build
-      run: docker build --tag poetry-project --file docker/Dockerfile .
+# Use the workflow template to build and push docker
+      - uses: jonyjalfon94/workflow-templates/build-and-push-docker@main
+        name: Build and Push
+        with:
+          registry_username: jonyjalfon94
+          registry_password: ${{ secrets.DOCKERHUBPASSWORD }}
+          image_name: demo-app
+          tag: latest
+          build_args: |
+            FIRST_ARG="Hello"
+            SECOND_ARG="World"
