@@ -1,0 +1,28 @@
+name: ebay-config
+
+
+# Trading API OAuth - https://developer.ebay.com/api-docs/static/oauth-tokens.html
+
+# UPDATE the values in this file, before running the tests
+api.sandbox.ebay.com:
+    appid: NerwinTj-asdestin-SBX-ec51f635b-a5009227
+    certid: SBX-c51f635b1ab4-dd5a-41c6-aad5-f4cf
+    devid: 3494f19e-6ecb-4fcb-9843-f3436206d82d
+    redirecturi: Nerwin_Tjen-NerwinTj-asdest-ltkzjx
+
+api.ebay.com:
+    appid: NerwinTj-asdestin-PRD-6c545f399-50c2203b
+    certid: PRD-c545f39923e2-2272-4ed5-b154-1c30
+    devid: 3494f19e-6ecb-4fcb-9843-f3436206d82d
+    redirecturi: Nerwin_Tjen-NerwinTj-asdest-hhycdnfb
+
+# https://developer.ebay.com/DevZone/SandboxUser/
+# Register a sandbox test user and use that credentials here
+sandbox-user:
+    username: TESTUSER_admin_junoit
+    password: ag8xkE+oL+*=wit
+
+# Register a production test user and use that credentials here - https://reg.ebay.com/reg/PartialReg
+production-user:
+    username: fixmyphone.repair
+    password: Test_0919
